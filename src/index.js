@@ -8,6 +8,7 @@ import Playlists from "./Pages/Playlists.js";
 import Library from "./Pages/Library.js";
 import Playlist from "./Pages/Playlist.js";
 import Song from "./Pages/Song.js";
+import Login from "./Pages/Login.js";
 
 ReactDOM.render(
     <BrowserRouter>
@@ -15,6 +16,7 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/Playlists" component={Playlists} />
                 <Route exact path="/Library" component={Library} />
+                <Route exact path="/Login" component={Login} />
                 <Route path="/Playlists/Playlist/:id" component={Playlist} />
                 <Route path="/Library/Song/:id" component={Song} />
             </Switch>
