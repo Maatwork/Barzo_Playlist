@@ -8,7 +8,7 @@ class App extends Component {
     }
 
     componentDidMount(){
-        fetch("http://maatwerk.works/api/bars/")
+        fetch("http://music.maatwerk.works/api/songs/")
             .then(res => {
                 console.log(res);
                 res.json().then((data) => {
@@ -34,7 +34,7 @@ class App extends Component {
                 <div className="list-group">
                     {this.state.items.length ? this.state.items.map(item =>
                         <a href={"/Library/Song/" + item.id} className="list-group-item" key={item.id}>
-                            <h4 className="list-group-item-heading">{item.name} -- {item.description}</h4>
+                            <h4 className="list-group-item-heading">{item.name} -- {item.album} -- {item.artist}</h4>
                             <a href={"/Library/Song/Delete/" + item.id} className="btn btn-default btn-lg">
                                 <span className="glyphicon glyphicon-th-list"></span> Delete
                             </a>
