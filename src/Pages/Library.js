@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import '../bootstrap/css/bootstrap.css';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 class App extends Component {
     constructor() {
         super();
-        this.state={items:[]};
+        this.state={items:[]}
+        this.cellEditProp = {
+            mode: 'click'
+        };
     }
 
     componentDidMount(){
@@ -35,14 +39,18 @@ class App extends Component {
                     {this.state.items.length ? this.state.items.map(item =>
                         <a href={"/Library/Song/" + item.id} className="list-group-item" key={item.id}>
                             <h4 className="list-group-item-heading">{item.name} -- {item.album} -- {item.artist}</h4>
-                            <a href={"/Library/Song/Delete/" + item.id} className="btn btn-default btn-lg">
-                                <span className="glyphicon glyphicon-th-list"></span> Delete
-                            </a>
                         </a>): <p> Loading... </p>}
                 </div>
+                <BootstrapTable className="test" data={this.state.items} keyField="id" search keyBoardNav cellEdit={ this.cellEditProp }>
+                    <TableHeaderColumn dataField="id" hidden={true}>Id</TableHeaderColumn>
+                    <TableHeaderColumn dataField="name">Name</TableHeaderColumn>
+                    <TableHeaderColumn dataField="album">Album</TableHeaderColumn>
+                    <TableHeaderColumn dataField="artist">Artist</TableHeaderColumn>
+                </BootstrapTable>
             </div>
         );
     }
 }
+
 
 export default App;

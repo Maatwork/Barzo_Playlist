@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormText, FormGroup, Alert } from 'reactstrap';
 import TextFieldGroup from '../Pages/TextFieldGroup';
+import { Route } from 'react-router-dom'
 
 class App extends Component {
     constructor(props) {
@@ -62,7 +63,6 @@ class App extends Component {
 
     render() {
         const {name, album, artist} = this.state;
-
         return (
             <div style={{ padding: 20}}>
                 <Form onSubmit={this.onSubmit}>
@@ -92,6 +92,16 @@ class App extends Component {
                         Submit
                     </Button>
                 </Form>
+                <div><p></p></div>
+                <Route render={({ history}) => (
+                    <Button
+                        color="primary"
+                        block
+                        size="lg"
+                        onClick={() => { history.push('/library') }}>
+                        Back
+                    </Button>
+                )} />
             </div>
         );
     }
