@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import '../bootstrap/css/bootstrap.css';
+import { Button } from 'reactstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import { Route } from 'react-router-dom';
 
 class App extends Component {
     constructor() {
         super();
         this.state={items:[]}
         this.cellEditProp = {
-            mode: 'click'
+            mode: 'click',
+            blurToSave: true,
+            afterSaveCell: this.onAfterSaveCell
         };
+        this.onAfterSaveCell = this.onAfterSaveCell.bind(this);
     }
 
     componentDidMount(){
@@ -25,21 +30,31 @@ class App extends Component {
             });
     }
 
+
+    onAfterSaveCell(row, cellName, cellValue) {
+        fetch("http://music.maatwerk.works/api/songs/" + row.id, {
+            method: 'PUT',
+            body: row
+        })
+            .then((result) => result.json())
+            .then((json) => console.log(json))
+            .catch((error) => console.log(error));
+        console.log(row);
+    }
+
     render() {
         return (
-            <div>
-                <div class="row">
-                    <div className="col-md-offset-9">
-                        <a href="/Playlists" className="btn btn-default btn-lg">
-                            <span className="glyphicon glyphicon-th-list"></span> Playlists
-                        </a>
-                    </div>
-                </div>
-                <div className="list-group">
-                    {this.state.items.length ? this.state.items.map(item =>
-                        <a href={"/Library/Song/" + item.id} className="list-group-item" key={item.id}>
-                            <h4 className="list-group-item-heading">{item.name} -- {item.album} -- {item.artist}</h4>
-                        </a>): <p> Loading... </p>}
+            <div style={{ padding: 20}}>
+                <div style={{ padding: 20}}>
+                    <Route render={({ history}) => (
+                        <Button
+                            color="primary"
+                            block
+                            size="lg"
+                            onClick={() => { history.push('/Playlists') }}>
+                            Playlists
+                        </Button>
+                    )} />
                 </div>
                 <BootstrapTable className="test" data={this.state.items} keyField="id" search keyBoardNav cellEdit={ this.cellEditProp }>
                     <TableHeaderColumn dataField="id" hidden={true}>Id</TableHeaderColumn>
