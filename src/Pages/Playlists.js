@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../bootstrap/css/bootstrap.css';
+import { Route } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
 class App extends Component {
     constructor() {
@@ -23,13 +25,17 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-                <div class="row">
-                    <div className="col-md-offset-9">
-                        <a href="/Library" className="btn btn-default btn-lg">
-                            <span className="glyphicon glyphicon-th-list"></span> Library
-                        </a>
-                    </div>
+            <div style={{ padding: 20}}>
+                <div style={{ padding: 20}}>
+                    <Route render={({ history}) => (
+                        <Button
+                            color="primary"
+                            block
+                            size="lg"
+                            onClick={() => { history.push('/Library') }}>
+                            Library
+                        </Button>
+                    )} />
                 </div>
                 <div className="list-group">
                     {this.state.items.length ? this.state.items.map(item =>
