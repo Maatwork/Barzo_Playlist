@@ -39,22 +39,46 @@ class App extends Component {
                 </div>
                 <div className="list-group">
                     {this.state.items.length ? this.state.items.map(item =>
-                        <a href={"/Playlists/Playlist/" + item.id} className="list-group-item" key={item.id}>
-                            <h4 className="list-group-item-heading">{item.name}</h4>
-                            <a href={"/Playlists/Playlist/Edit/" + item.id} className="btn btn-default btn-lg">
-                                <span className="glyphicon glyphicon-th-list"></span> Edit
+                        <div className="list-group-item" key={item.id}>
+                            <a href={"/Playlists/Playlist/" + item.id} className="list-group-item">
+                                <h4 className="list-group-item-heading">{item.name}</h4>
                             </a>
-                            <a href={"/Playlists/Playlist/Delete/" + item.id} className="btn btn-default btn-lg">
-                                <span className="glyphicon glyphicon-th-list"></span> Delete
-                            </a>
-                        </a>): <p> Loading... </p>}
+                            <Route render={({ history}) => (
+                                <Button
+                                    color="primary"
+                                    block
+                                    size="lg"
+                                    onClick={() => { history.push('/Playlists/EditPlaylist/' + item.id) }}>
+                                    Edit
+                                </Button>
+                            )} />
+                            <Button
+                                color="primary"
+                                block
+                                size="lg"
+                                onClick={() => {
+                                    fetch("http://music.maatwerk.works/api/playlists", {
+                                        method: 'DELETE',
+                                        body: item.id
+                                    })
+                                        .then((result) => result.json())
+                                        .then((json) => console.log(json))
+                                        .catch((error) => console.log(error));
+                                     }}>
+                                Delete
+                            </Button>
+                        </div>) : <p> Loading... </p>}
                 </div>
-                <div class="row">
-                    <div className="col-md-offset-9">
-                        <a href="/Playlists/Playlist/Add" className="btn btn-default btn-lg">
-                            <span className="glyphicon glyphicon-th-list"></span> Add New Playlist
-                        </a>
-                    </div>
+                <div style={{ padding: 20}}>
+                    <Route render={({ history}) => (
+                        <Button
+                            color="primary"
+                            block
+                            size="lg"
+                            onClick={() => { history.push('/Playlists/AddPlaylist') }}>
+                            Add new playlist
+                        </Button>
+                    )} />
                 </div>
             </div>
         );
