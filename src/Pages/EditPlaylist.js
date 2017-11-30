@@ -30,18 +30,17 @@ class App extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
-        const data = new FormData();
-        data.append('id', this.state.items.id)
-        data.append('name', this.state.name)
-
         fetch("http://music.maatwerk.works/api/playlists", {
             method: 'PUT',
-            body: data
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: this.state.items.id,
+                name: this.state.name
+            })
         })
-            .then((result) => result.json())
-            .then((json) => console.log(json))
-            .catch((error) => console.log(error));
     }
 
     onChange(e) {

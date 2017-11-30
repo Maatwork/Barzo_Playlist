@@ -32,14 +32,15 @@ class App extends Component {
 
 
     onAfterSaveCell(row, cellName, cellValue) {
+        console.log(JSON.stringify(row));
         fetch("http://music.maatwerk.works/api/songs/" + row.id, {
             method: 'PUT',
-            body: row
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(row)
         })
-            .then((result) => result.json())
-            .then((json) => console.log(json))
-            .catch((error) => console.log(error));
-        console.log(row);
     }
 
     render() {

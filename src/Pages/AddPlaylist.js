@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form } from 'reactstrap';
 import TextFieldGroup from '../Pages/TextFieldGroup';
-import { Route } from 'react-router-dom'
+import { Route } from 'react-router-dom';
 
 class App extends Component {
     constructor(props) {
@@ -15,17 +15,15 @@ class App extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
-        const data = new FormData();
-        data.append('name', this.state.name)
-
+        console.log(JSON.stringify(this.state.name));
         fetch("http://music.maatwerk.works/api/playlists", {
             method: 'POST',
-            body: data
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state.name)
         })
-            .then((result) => result.json())
-            .then((json) => console.log(json))
-            .catch((error) => console.log(error));
     }
 
     onChange(e) {

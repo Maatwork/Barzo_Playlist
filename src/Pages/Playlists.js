@@ -59,11 +59,12 @@ class App extends Component {
                                 onClick={() => {
                                     fetch("http://music.maatwerk.works/api/playlists", {
                                         method: 'DELETE',
-                                        body: item.id
+                                        headers: {
+                                            'Accept': 'application/json',
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify(item.id)
                                     })
-                                        .then((result) => result.json())
-                                        .then((json) => console.log(json))
-                                        .catch((error) => console.log(error));
                                      }}>
                                 Delete
                             </Button>
