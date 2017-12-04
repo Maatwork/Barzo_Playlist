@@ -30,7 +30,7 @@ class App extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        fetch("http://music.maatwerk.works/api/playlists", {
+        fetch("http://music.maatwerk.works/api/playlists/" + this.props.match.params.id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',

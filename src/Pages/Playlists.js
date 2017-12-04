@@ -57,13 +57,12 @@ class App extends Component {
                                 block
                                 size="lg"
                                 onClick={() => {
-                                    fetch("http://music.maatwerk.works/api/playlists", {
+                                    fetch("http://music.maatwerk.works/api/playlists/" + item.id, {
                                         method: 'DELETE',
                                         headers: {
                                             'Accept': 'application/json',
                                             'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify(item.id)
+                                        }
                                     })
                                      }}>
                                 Delete

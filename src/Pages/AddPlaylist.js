@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form } from 'reactstrap';
 import TextFieldGroup from '../Pages/TextFieldGroup';
 import { Route } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
     constructor(props) {
@@ -22,8 +23,8 @@ class App extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state.name)
-        })
+            body: JSON.stringify({name: this.state.name})
+        });
     }
 
     onChange(e) {
